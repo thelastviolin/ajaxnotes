@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script>
+	function subnewnoteform() {
+		document.newnoteform.submit()
+	}
+	</script>
+</head>
+<body>
+<h2>My Notes</h2>
+{% if notes_found %}
+<ul>
+{% for note in notes %}
+<li><a>{{ note.lastmodified }}: {{ note.title }}</a><li>
+{% endfor %}
+</ul>
+{% endif %}
+<form form name="newnoteform" action="/newnote.html" method="get">
+<a href="javascript:subnewnoteform()">New Note</a>
+</form>
+</body>
+</html>
