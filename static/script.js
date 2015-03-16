@@ -12,11 +12,12 @@ function setHtml(id, text) {
 }
 
 function getValue(id) {
-  var tag = document.getElementById(id);
-  if (tag) {
-    return tag.value;
-  }
+    var tag = document.getElementById(id);
+    if (tag) {
+        return tag.value;
+    }
 }
+
 
 function getTime() {
   var d = new Date();
@@ -31,6 +32,7 @@ function getTime() {
   	hours = 12;
   }
   result += " " + pad(hours) + ":" + pad(d.getMinutes()) + " " + time_of_day;
+  console.log(result);
   return result;
 }
 

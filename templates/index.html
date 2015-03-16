@@ -7,6 +7,9 @@
 	function subnewnoteform() {
 		document.newnoteform.submit()
 	}
+	function otherform() {
+	    document.existingnote.submit()
+	}
 	</script>
 </head>
 <body>
@@ -14,11 +17,13 @@
 {% if notes_found %}
 <ul>
 {% for note in notes %}
-<li><a>{{ note.lastmodified }}: {{ note.title }}</a><li>
+<form form name="existingnote" action="/edit.html" method="get">
+<li><a href="javascript:otherform">{{ note.lastmodified }}: {{ note.title }}</a>
+</form>
 {% endfor %}
 </ul>
 {% endif %}
-<form form name="newnoteform" action="/newnote.html" method="get">
+<form form name="newnoteform" action="/edit.html" method="get">
 <a href="javascript:subnewnoteform()">New Note</a>
 </form>
 </body>
