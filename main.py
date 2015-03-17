@@ -44,6 +44,9 @@ class MainHandler(webapp2.RequestHandler):
 
 class EditHandler(webapp2.RequestHandler):
     def get(self):
+        title = ""
+        lastmodified = ""
+        
         template_params = {
 
         }
@@ -53,7 +56,7 @@ class EditHandler(webapp2.RequestHandler):
         title = self.request.get('title')
         date = self.request.get('date')
         text = self.request.get('text')
-        simpledate = self.request.get('simpledate')
+        simpledate = self.request.get('simpledate');
         new_note = Note(title=title, lastmodified=date, day=simpledate, content=text)
         new_note.put()
         self.redirect("/")

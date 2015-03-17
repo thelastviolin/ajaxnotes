@@ -11,9 +11,24 @@ function sendData(params, toUrl, callbackFunction) {
   for (var param in params) {
     parameters += param + '=' + escape(params[param]) + '&';
   }
-  xmlHttp.open("POST", toUrl, true);
+  xmlHttp.open("GET", toUrl, true);
   xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
   xmlHttp.send(parameters);
+}
+
+function sendDate() {
+  var text = getDate();
+  if (text) {
+    sendData({'date': text}, '/edit.html', handleDate);
+  }
+}
+
+function handleDate(xmlHttp, params) {
+  if (xmlHttp.responseText == 'OK') {
+    setTimeout("loadPage('/');", 300);
+  } else {
+    showError(xmlHttp.responseText);
+  }
 }
 
 function loadLoop() {
