@@ -18,7 +18,7 @@
 <ul>
 {% for note in notes %}
 <form form name="existingnote" action="/edit.html" method="get">
-<li><a href="javascript:otherform">{{ note.lastmodified }}: {{ note.title }}</a>
+<li><a href="javascript:otherform()">{{ note.day }}: {{ note.title }}</a>
 </form>
 {% endfor %}
 </ul>

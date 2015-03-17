@@ -1,5 +1,41 @@
 <html>
+<head>
+	<script src="static/script.js"></script>
+</head>
 <body>
-COCK
+	<form action="/edit.html" method="post">
+		<div id="title_div" name="title_div" contentEditable="false">New Note</div>
+		<div><a id="edit" href="javascript:change_title()">edit title</a></div>
+		<div id="date_div"></div>
+		<input type="hidden" id="title" name="title">
+		<input type="hidden" id="date" name="date">
+		<input type="hidden" id="simpledate" name="simpledate">
+		<div id="text"> 
+			<textarea name="text" rows="20" cols="50"></textarea>
+		</div>
+		<input type="submit">
+	</form>
+	<script> 
+		setLastModified("date_div", getDate());
+		setValue("simpledate", getSimpleDate());
+		setValue("date", getDate());
+		setValue("title", document.getElementById("title_div").innerHTML);
+	</script>
+	<script>
+		function change_title() {
+			document.getElementById("edit")
+			var kek = document.getElementById("title_div");
+			if (kek.contentEditable == "true") {
+				document.getElementById("edit").innerHTML = "edit title";
+				document.getElementById("title_div").contentEditable = "false";
+				setValue("title", document.getElementById("title_div").innerHTML);
+				console.log(document.getElementById("title").value);
+			}
+			else {
+				document.getElementById("edit").innerHTML = "done";
+				document.getElementById("title_div").contentEditable = "true";
+			}
+		}
+	</script>
 </body>
 </html>

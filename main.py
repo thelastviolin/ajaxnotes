@@ -16,7 +16,6 @@
 #
 import webapp2
 import os
-import datetime
 
 from model.Note import Note
 from google.appengine.ext.webapp import template
@@ -50,6 +49,14 @@ class EditHandler(webapp2.RequestHandler):
         }
         render_template(self, 'edit.html', template_params)
 
+    def post(self):
+        title = self.request.get('title')
+        date = self.request.get('date')
+        text = self.request.get('text')
+        simpledate = self.request.get('simpledate')
+        new_note = Note(title=title, lastmodified=date, day=simpledate, content=text)
+        new_note.put()
+        self.redirect("/")
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),

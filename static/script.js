@@ -1,6 +1,38 @@
 /* Ajax Functions */
 
+function sendData(params, toUrl, callbackFunction) {
+  var xmlHttp = new XMLHttpRequest();
+  xmlHttp.onreadystatechange = function() {
+    if (xmlHttp.readyState == 4) {
+      callbackFunction(xmlHttp, params);
+    }
+  }
+  var parameters = '';
+  for (var param in params) {
+    parameters += param + '=' + escape(params[param]) + '&';
+  }
+  xmlHttp.open("POST", toUrl, true);
+  xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+  xmlHttp.send(parameters);
+}
 
+function loadLoop() {
+  var msSinceLast = (getDate() - lastLoad);
+  if (msSinceLast > 10000) {
+    loadPosts();
+    lastLoad = getDate();
+  }
+  setTimeout('loadLoop();', 1000);
+}
+
+/* Specific Functions */
+
+function setLastModified(id, text) {
+  var tag = document.getElementById(id);
+  if (tag) {
+    tag.innerHTML = "last modified at " + text;
+  }
+}
 
 /* Generic Functions */
 
@@ -8,6 +40,13 @@ function setHtml(id, text) {
   var tag = document.getElementById(id);
   if (tag) {
     tag.innerHTML = text;
+  }
+}
+
+function setValue(id, text) {
+  var tag = document.getElementById(id);
+  if (tag) {
+    tag.value = text;
   }
 }
 
@@ -19,10 +58,12 @@ function getValue(id) {
 }
 
 
-function getTime() {
+function getDate() {
   var d = new Date();
-  var result = d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate());
+  var result = d.getFullYear() + "-" + d.getMonth() + 1 + "-" + d.getDate();
   var hours = d.getHours();
+  var minutes = d.getMinutes();
+  var minutesString;
   var time_of_day = "AM";
   if (hours > 12) {
   	hours -= 12;
@@ -31,15 +72,28 @@ function getTime() {
   else if (hours == 0) {
   	hours = 12;
   }
-  result += " " + pad(hours) + ":" + pad(d.getMinutes()) + " " + time_of_day;
-  console.log(result);
+  if (minutes < 10) {
+    minutesString = "0" + minutes;
+  }
+  else {
+    minutesString = minutes;
+  }
+  result += " " + hours + ":" + minutesString + " " + time_of_day;
   return result;
 }
 
-function formatTime(time) {
+function getSimpleDate() {
+  var d = new Date();
+  var result = d.getFullYear() + "-" + d.getMonth() + 1 + "-" + d.getDate();
+  return result;
+}
+
+function formatDate(time) {
   var d = new Date(time);
-  var result = d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate());
+  var result = d.getFullYear() + "-" + d.getMonth() + 1 + "-" + d.getDate();
   var hours = d.getHours();
+  var minutes = d.getMinutes();
+  var minutesString;
   var time_of_day = "AM";
   if (hours > 12) {
   	hours -= 12;
@@ -48,6 +102,12 @@ function formatTime(time) {
   else if (hours == 0) {
   	hours = 12;
   }
-  result += " " + pad(hours) + ":" + pad(d.getMinutes()) + " " + time_of_day;
+  if (minutes < 10) {
+    minutesString = "0" + minutes;
+  }
+  else {
+    minutesString = minutes;
+  }
+  result += " " + hours + ":" + minutesString + " " + time_of_day;
   return result;
 }

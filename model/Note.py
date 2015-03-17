@@ -1,7 +1,7 @@
 from google.appengine.ext import db
-import datetime
 
 class Note(db.Model):
     title = db.StringProperty()
-    lastmodified = db.DateTimeProperty()
+    lastmodified = db.TextProperty()
     content = db.TextProperty()
+    day = db.TextProperty()
